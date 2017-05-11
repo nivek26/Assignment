@@ -1,0 +1,42 @@
+#include <iostream>
+#include <thread>
+#include <QApplication>
+#include <QTextEdit>
+#include <QMutex>
+#include <QList>
+#include <QThread>
+
+using namespace std;
+
+const int SIZE = 10;                  // How many numbers are going to be in the sequence
+
+void createSequence(QList<int>&list); // Function that creates the numbers
+void printSequence(QList<int>&list);  // Function that prints out the numbers
+
+int main(int argc, char *argv[]){
+QApplication app(argc, argv);
+
+QList <int> list;                     // Creating the QList
+
+createSequence(list);
+printSequence(list);
+
+return app.exec();
+}
+
+// Creating function
+void createSequence(QList<int> &list){
+       list.push_back(0);
+       list.push_back(1);
+
+       for(int i = 0; i < SIZE; i++){
+           if (i > 1) list.push_back((list[i - 1] + list[i - 2]));
+       }
+}
+
+// Printing function
+void printSequence(QList<int> &list){
+    for(int i = 0; i < SIZE; i++){
+        if (i > 0) cout << list[i] << endl;
+    }
+}
